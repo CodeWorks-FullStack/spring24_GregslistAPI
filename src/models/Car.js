@@ -14,5 +14,5 @@ export const CarSchema = new Schema({
   tags: [{ type: String }],
   mileage: { type: Number, required: true, min: 0, max: 1000000 },
   hasCleanTitle: { type: Boolean, required: true, default: true },
-  creatorId: { type: Schema.ObjectId, required: true, ref: 'Account' } // objectId is MongoDB's type, for all _ids. The ref, points to the original location of where this id came from.
+  creatorId: { type: Schema.ObjectId, ref: 'Account' } // objectId is MongoDB's type, for all _ids. The ref, points to the original location of where this id came from.
 }, { timestamps: true })

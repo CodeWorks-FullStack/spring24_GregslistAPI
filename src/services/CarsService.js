@@ -3,6 +3,7 @@ import { dbContext } from "../db/DbContext.js"
 
 
 class CarsService {
+
   async getCars() {
     const cars = await dbContext.Cars.find()
     return cars
@@ -25,6 +26,11 @@ class CarsService {
   async getCarById(carId) {
     const car = await dbContext.Cars.findById(carId)
     if (!car) throw new Error(`No car with id: ${carId}`)
+    return car
+  }
+
+  async createCar(carData) {
+    const car = await dbContext.Cars.create(carData)
     return car
   }
 

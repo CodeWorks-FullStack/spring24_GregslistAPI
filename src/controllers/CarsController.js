@@ -10,7 +10,8 @@ export class CarsController extends BaseController {
       .get('', this.getCars)
       .get('/search', this.searchCars) // this route must be above, the :carId route, otherwise 'search' will be mistaken for an id
       .get('/:carId', this.getCarById)
-    // .get('color/:color', this.getCarByColor) THIS IS NOT RESTFUL
+      // .get('color/:color', this.getCarByColor) THIS IS NOT RESTFUL
+      .post('', this.createCar)
   }
 
   async getCars(request, response, next) {
@@ -36,6 +37,16 @@ export class CarsController extends BaseController {
     try {
       const carId = request.params.carId
       const car = await carsService.getCarById(carId)
+      response.send(car)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async createCar(request, response, next) {
+    try {
+      const carData = request.body
+      const car = await carsService.createCar(carData)
       response.send(car)
     } catch (error) {
       next(error)
