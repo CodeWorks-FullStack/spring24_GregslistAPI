@@ -13,6 +13,7 @@ export class CarsController extends BaseController {
       // .get('color/:color', this.getCarByColor) THIS IS NOT RESTFUL
       .post('', this.createCar)
       .delete('/:carId', this.destroyCar)
+      .put('/:carId', this.updateCar)
   }
 
   async getCars(request, response, next) {
@@ -59,6 +60,17 @@ export class CarsController extends BaseController {
       const carId = request.params.carId
       const message = await carsService.destroyCar(carId)
       response.send(message)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async updateCar(request, response, next) {
+    try {
+      const carId = request.params.carId
+      const carData = request.body
+      const car = await carsService.updateCar(carId, carData)
+      response.send(car)
     } catch (error) {
       next(error)
     }

@@ -4,7 +4,6 @@ import { dbContext } from "../db/DbContext.js"
 
 class CarsService {
 
-
   async getCars() {
     const cars = await dbContext.Cars.find()
     return cars
@@ -42,6 +41,21 @@ class CarsService {
 
     return `${carToDelete.make} ${carToDelete.model} has been deleted!`
   }
+
+  async updateCar(carId, carData) {
+    const carToUpdate = await this.getCarById(carId)
+
+    carToUpdate.price = carData.price ?? carToUpdate.price
+    carToUpdate.imgUrl = carData.imgUrl ?? carToUpdate.imgUrl
+    carToUpdate.color = carData.color ?? carToUpdate.color
+    carToUpdate.engineType = carData.engineType ?? carToUpdate.engineType
+
+    await carToUpdate.save()
+
+    return carToUpdate
+  }
+
+
 
 }
 
